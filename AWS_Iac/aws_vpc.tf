@@ -29,3 +29,4 @@ resource "aws_subnet" "pub_sub3" {
     availability_zone = "ap-south-1c"
 }
 
+#so far so good
