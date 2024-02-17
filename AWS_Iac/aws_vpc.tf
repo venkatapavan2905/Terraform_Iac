@@ -51,7 +51,7 @@ resource "aws_subnet" "pvt_sub2" {
 }
 
 #Private subnet 1 in ap-sputh-1a
-resource "aws_subnet" "pvt_sub2" {
+resource "aws_subnet" "pvt_sub3" {
     vpc_id = aws_vpc.project_vpc.id
     cidr_block = "10.0.6.0/24"
     map_public_ip_on_launch = "false"
@@ -121,13 +121,13 @@ resource "aws_route_table_association" "pvt_sub1_association" {
 }
 
 resource "aws_route_table_association" "pvt_sub2_association" {
-    subnet_id = aws_subnet.pvt_sub1.id
+    subnet_id = aws_subnet.pvt_sub2.id
     route_table_id = aws_route_table.PrivateRT.id
   
 }
 
-resource "aws_route_table_association" "pvt_sub2_association" {
-    subnet_id = aws_subnet.pvt_sub1.id
+resource "aws_route_table_association" "pvt_sub3_association" {
+    subnet_id = aws_subnet.pvt_sub3.id
     route_table_id = aws_route_table.PrivateRT.id
   
 }
