@@ -92,7 +92,7 @@ resource "aws_route_table_association" "pub_sub3_associsation" {
 
 #Elastic IP for NAT Gateway
 resource "aws_eip" "NAT_EIP" {
-    vpc = true  
+    vpc = true
 }
 
 #NAT Gateway
