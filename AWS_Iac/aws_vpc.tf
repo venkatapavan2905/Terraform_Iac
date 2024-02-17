@@ -99,7 +99,7 @@ resource "aws_eip" "NAT_EIP" {
 resource "aws_nat_gateway" "NAT_Gateway" {
     allocation_id = aws_eip.NAT_EIP.id
     subnet_id = aws_subnet.pub_sub1.id
-    depends_on = [ aws_internet_gateway.IGW_VPC.id ]
+    depends_on = [ aws_internet_gateway.IGW_VPC ]
   
 }
 
