@@ -1,5 +1,8 @@
 # Security group for instances 
 resource "aws_security_group" "Instance_SG" {
+
+    vpc_id = aws_vpc.project_vpc.id
+
     ingress {
         from_port = 80
         to_port = 80
@@ -10,8 +13,15 @@ resource "aws_security_group" "Instance_SG" {
     ingress {
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        security_groups = [ aws_security_group.Loadbalancer_SG.id]
     }
 
     egress {
@@ -24,6 +34,9 @@ resource "aws_security_group" "Instance_SG" {
 }
 
 resource "aws_security_group" "Loadbalancer_SG" {
+
+    vpc_id = aws_vpc.project_vpc.id
+
     ingress {
         from_port = 443
         to_port = 443
@@ -70,7 +83,7 @@ resource "aws_launch_template" "ec2_template" {
 resource "aws_lb" "LoadBalancer_ALB" {
     load_balancer_type = "application"
     internal = false
-    subnets = [aws_subnet.pub_sub1.id]
+    subnets = [aws_subnet.pub_sub1.id, aws_subnet.pub_sub2.id, aws_subnet.pub_sub3.id]
     security_groups = [aws_security_group.Loadbalancer_SG.id]
 }
 
